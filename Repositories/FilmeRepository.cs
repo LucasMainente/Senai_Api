@@ -67,7 +67,7 @@ namespace api_filmes_senai.Repositories
         {
             try
             {
-                Filme filmeBuscado = _context.Filmes.Find(id);
+                Filme filmeBuscado = _context.Filmes.Find(id)!;
 
                 if (filmeBuscado != null)
                 {

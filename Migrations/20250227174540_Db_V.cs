@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api_filmes_senai.Migrations
 {
     /// <inheritdoc />
-    public partial class Db_Filmes : Migration
+    public partial class Db_V : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,6 +21,20 @@ namespace api_filmes_senai.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Genero", x => x.IdGenero);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuario",
+                columns: table => new
+                {
+                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "VARCHAR(50)", nullable: false),
+                    Email = table.Column<string>(type: "VARCHAR(50)", nullable: false),
+                    Senha = table.Column<string>(type: "VARCHAR(60)", maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuario", x => x.IdUsuario);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,6 +60,12 @@ namespace api_filmes_senai.Migrations
                 name: "IX_Filmes_IdGenero",
                 table: "Filmes",
                 column: "IdGenero");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuario_Email",
+                table: "Usuario",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -53,6 +73,9 @@ namespace api_filmes_senai.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Filmes");
+
+            migrationBuilder.DropTable(
+                name: "Usuario");
 
             migrationBuilder.DropTable(
                 name: "Genero");
